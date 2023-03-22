@@ -1,7 +1,12 @@
-const AuthenticationForm = () => {
+const AuthenticationForm = ({onSubmitForm}) => {
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmitForm();
+  }
 
   return(
-    <form className="flex flex-col gap-5">
+    <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
       <div className="flex gap-2 items-center">
         <label htmlFor="email" className="w-24 font-bold">Email</label>
         <input type="email" name="email" id="email" className="border p-2 rounded w-full" />
