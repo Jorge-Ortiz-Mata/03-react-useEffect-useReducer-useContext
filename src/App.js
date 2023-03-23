@@ -7,7 +7,7 @@ import WelcomeCard from './components/Welcome/WelcomeCard';
 function App() {
   const [isLogin, setIsLogin] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = (account) => {
     setIsLogin(true);
   }
 

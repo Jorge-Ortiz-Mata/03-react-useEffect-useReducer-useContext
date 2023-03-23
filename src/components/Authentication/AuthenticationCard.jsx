@@ -2,8 +2,8 @@ import AuthenticationForm from "./AuthenticationForm";
 
 const AuthenticationCard = ({onSubmit}) => {
 
-  const handleSubmit = () => {
-    onSubmit(true);
+  const handleSubmit = (account) => {
+    onSubmit(account);
   }
 
   return(
