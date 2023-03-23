@@ -8,12 +8,16 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
 
   const handleLogin = () => {
-    setIsLogin(true)
+    setIsLogin(true);
+  }
+
+  const handleLogout = () => {
+    setIsLogin(false);
   }
 
   return (
     <>
-      <Header showLinks={isLogin} />
+      <Header showLinks={isLogin} closeSession={handleLogout} />
       {
         isLogin
         ? <WelcomeCard />
