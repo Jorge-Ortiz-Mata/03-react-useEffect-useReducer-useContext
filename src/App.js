@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import AuthenticationCard from './components/Authentication/AuthenticationCard';
 import Header from './components/Header/Header';
+import CardRecuder from './components/ReducerComponents/CardReducer';
 import WelcomeCard from './components/Welcome/WelcomeCard';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         ? <WelcomeCard />
         : <AuthenticationCard onSubmit={handleLogin} />
       }
+      <CardRecuder />
     </>
   );
 }
