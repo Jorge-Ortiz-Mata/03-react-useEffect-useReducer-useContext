@@ -1,7 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const AuthenticationForm = ({onSubmitForm}) => {
   const [account, setAccount] = useState({email: '', password: ''});
+  const [formEnabled, setFormEnabled] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      console.log('CHECKING.....');
+
+      if(account.email.length > 1 && account.password.length > 6){
+        setFormEnabled(true);
+      } else {
+        setFormEnabled(false);
+      }
+    }, 500);
+
+    return () => {
+      console.log('RETURNING DUDE!!!');
+      clearInterval(timer);
+    }
+  }, [account]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,7 +46,18 @@ const AuthenticationForm = ({onSubmitForm}) => {
         <input type="password" name="password" id="password" className="border p-2 rounded w-full" onChange={handleChange} />
       </div>
       <div className="flex gap-2 items-center justify-end">
-        <input type="submit" value="Login" className="border p-2 rounded bg-yellow-700 text-white text-sm font-bold px-5" />
+        <input
+          type="submit"
+          value="Login"
+          className= {
+            formEnabled
+            ? "border p-2 rounded bg-yellow-700 text-white text-sm font-bold px-5"
+            : "border p-2 rounded bg-gray-200 text-white text-sm font-bold px-5"
+          }
+          disabled={
+            formEnabled ? false : true
+          }
+        />
       </div>
     </form>
   );
