@@ -1,30 +1,24 @@
-import { useState } from "react";
+import { useReducer } from "react";
+
+const nameReducer = (state, action) => {
+  if(action.type === 'USER_INPUT') {
+    if (action.value.length >= 6) {
+      return { value: action.value, isValid: true };
+    } else {
+      return { value: state.value, isValid: false };
+    }
+  }
+};
 
 const CardRecuder = () => {
-  const [name, setName] = useState('');
-  const [validName, setValidName] = useState(true);
-  const [formDisable, setFormDisable] = useState(true);
+  const [nameState, dispatchName] = useReducer(nameReducer, { value: '', isValid: false });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (name.includes('_')){
-      setValidName(true);
-    } else {
-      setValidName(false);
-    }
   }
 
   const handleChange = (e) => {
-    const value = e.target.value;
-
-    if(value.length > 6) {
-      setFormDisable(false);
-    } else {
-      setFormDisable(true);
-    }
-
-    setName(value);
+    dispatchName({type: 'USER_INPUT', value: e.target.value})
   }
 
   return(
@@ -35,10 +29,11 @@ const CardRecuder = () => {
           <input
             type="text"
             name="name"
+            value={nameState.value}
             className= {
-              validName
-              ? "border p-2 rounded w-full"
-              : "border p-2 rounded w-full border-red-500"
+              nameState.isValid
+              ? "border-4 p-2 rounded w-full border-green-600"
+              : "border-4 p-2 rounded w-full border-red-500"
             }
             onChange={handleChange}
           />
@@ -47,12 +42,7 @@ const CardRecuder = () => {
         <input
           type="submit"
           value="Submit"
-          className= {
-            formDisable
-            ? "border p-2 rounded bg-green-200 text-white text-sm font-bold px-5"
-            : "border p-2 rounded bg-green-700 text-white text-sm font-bold px-5"
-          }
-          disabled={formDisable}
+          className="border p-2 rounded bg-green-700 text-white text-sm font-bold px-5"
           />
       </form>
     </div>
