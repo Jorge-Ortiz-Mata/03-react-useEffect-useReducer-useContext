@@ -4,6 +4,7 @@ import AuthenticationCard from './components/Authentication/AuthenticationCard';
 import Header from './components/Header/Header';
 import CardRecuder from './components/ReducerComponents/CardReducer';
 import WelcomeCard from './components/Welcome/WelcomeCard';
+import AuthContext from './store/auth-context';
 
 function App() {
   const [isLogin, setIsLogin] = useState(undefined);
@@ -24,7 +25,7 @@ function App() {
   }
 
   return (
-    <>
+    <AuthContext.Provider value={{otherValid: isLogin}}>
       <Header showLinks={isLogin} closeSession={handleLogout} />
       {
         isLogin
@@ -32,7 +33,7 @@ function App() {
         : <AuthenticationCard onSubmit={handleLogin} />
       }
       <CardRecuder />
-    </>
+    </AuthContext.Provider>
   );
 }
 
