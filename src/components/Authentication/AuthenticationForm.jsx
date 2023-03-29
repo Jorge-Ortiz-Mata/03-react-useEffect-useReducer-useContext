@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import AuthContext from "../../store/auth-context";
+import { useEffect, useState, useContext } from "react";
 
-const AuthenticationForm = ({onSubmitForm}) => {
+const AuthenticationForm = () => {
+  const authCtx = useContext(AuthContext);
   const [account, setAccount] = useState({email: '', password: ''});
   const [formEnabled, setFormEnabled] = useState(false);
 
@@ -23,7 +25,8 @@ const AuthenticationForm = ({onSubmitForm}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmitForm(account);
+
+    authCtx.onLogin(account.email);
   }
 
   const handleChange = (e) => {
